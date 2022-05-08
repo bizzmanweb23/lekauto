@@ -1,0 +1,319 @@
+<script>
+   $('#save').click(function() {
+	   //alert ('hello');
+        var form = $('#vehicle_details_form')[0];
+        var data = new FormData(form);
+
+        toastr.options = {
+            "closeButton": true,
+            "newestOnTop": true,
+            "positionClass": "toast-top-right"
+        };
+        $.ajax({
+            url: "{{ route('admin.vehicle.store') }}",
+			headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()},
+            type: 'post',
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            dataType: 'json',
+            beforeSend: function() {
+                $('#user_loder').show()
+            },
+            success: function(data) {
+                if (data.status == 'success') {
+                    toastr.success(data.message);
+                }
+				else{
+					toastr.error();
+				}
+				
+                $('#vehicle_details_form').trigger("reset");
+                $('#user_loder').hide()
+				window.location.href="{{ route('admin.vehicledetails.index') }}";
+            },
+            error: function(error) {
+                $('#user_loder').hide()
+                var err = error.responseJSON.errors;
+                if (error.status == 422) {
+                    toastr.error("Error");
+                    $('#vehicle_number_error').html(err.vehicle_number)
+                    $('#previous_vehicle_no_error').html(err.previous_vehicle_no)
+                    $('#name_model_error').html(err.name_model)
+                    $('#reg_road_tax_error').html(err.reg_road_tax)
+                    $('#body_type_error').html(err.body_type)
+                    $('#engine_no_error').html(err.engine_no)
+                    $('#chassis_no_error').html(err.chassis_no)
+                    $('#propellant_error').html(err.propellant)
+                    $('#original_reg_date_error').html(err.original_reg_date)
+                    $('#colour_error').html(err.colour)
+                    $('#number_of_owner_error').html(err.number_of_owner)
+                    $('#coe_logcard_error').html(err.coe_logcard)
+                    $('#coe_pqp_error').html(err.coe_pqp)
+                    $('#reg_fee_error').html(err.reg_fee)
+                    $('#arf_amount_error').html(err.arf_amount)
+                    $('#omv_error').html(err.omv)
+                    $('#cves_rebate_error').html(err.cves_rebate)
+                    $('#ets_paper_from_error').html(err.ets_paper_from)
+                    $('#use_tcoe_error').html(err.use_tcoe)
+                    if (err.vehicle_number) {
+                        toastr.error(err.vehicle_number);
+                    }
+					if (err.previous_vehicle_no) {
+                        toastr.error(err.previous_vehicle_no);
+                    }
+					if (err.name_model) {
+                        toastr.error(err.name_model);
+                    }
+					if (err.reg_road_tax) {
+                        toastr.error(err.reg_road_tax);
+                    }
+					if (err.body_type) {
+                        toastr.error(err.body_type);
+                    }
+					if (err.chassis_no) {
+                        toastr.error(err.chassis_no);
+                    }
+					if (err.engine_no) {
+                        toastr.error(err.engine_no);
+                    }
+					if (err.propellant) {
+                        toastr.error(err.propellant);
+                    }
+					if (err.original_reg_date) {
+                        toastr.error(err.original_reg_date);
+                    }
+					if (err.colour) {
+                        toastr.error(err.colour);
+                    }
+					if (err.number_of_owner) {
+                        toastr.error(err.number_of_owner);
+                    }
+					if (err.coe_logcard) {
+                        toastr.error(err.coe_logcard);
+                    }
+					if (err.coe_pqp) {
+                        toastr.error(err.coe_pqp);
+                    }
+					if (err.reg_fee) {
+                        toastr.error(err.reg_fee);
+                    }
+					if (err.arf_amount) {
+                        toastr.error(err.arf_amount);
+                    }
+					if (err.omv) {
+                        toastr.error(err.omv);
+                    }
+					if (err.cves_rebate) {
+                        toastr.error(err.cves_rebate);
+                    }
+					if (err.ets_paper_from) {
+                        toastr.error(err.ets_paper_from);
+                    }
+					if (err.use_tcoe) {
+                        toastr.error(err.use_tcoe);
+                    }
+                }
+                console.log(error)
+            }
+        })
+    });
+	
+	$('#vehicle_details_form :input').click(function() {
+        $('#vehicle_number_error').html('')
+        $('#previous_vehicle_no_error').html('')
+        $('#name_model_error').html('')
+        $('#reg_road_tax_error').html('')
+        $('#body_type_error').html('')
+        $('#chassis_no_error').html('')
+        $('#propellant_error').html('')
+        $('#original_reg_date_error').html('')
+        $('#colour_error').html('')
+        $('#number_of_owner_error').html('')
+        $('#coe_logcard_error').html('')
+        $('#coe_pqp_error').html('')
+        $('#reg_fee_error').html('')
+        $('#arf_amount_error').html('')
+        $('#omv_error').html('')
+        $('#cves_rebate_error').html('')
+        $('#ets_paper_from_error').html('')
+        $('#use_tcoe_error').html('')
+    })
+	
+/*function action(value, row, index) 
+		{
+			return [
+                '<a class="btn btn-soft-info  btn-icon btn-circle btn-sm" href="javascript:void(0)" title="Edit" onclick="editVehicleDetails(' +
+                row.id + ')">',
+                '<i class="fas fa-edit"></i>',
+                '</a>  ',
+				'<a class="btn btn-soft-info  btn-icon btn-circle btn-sm" href="javascript:void(0)" title="view" onclick="viewVehicleDetails(' +
+                row.id + ')">',
+                '<i class="las la-eye"></i>',
+                '</a>  ',
+            ].join('')
+			
+		}*/
+		
+            $('body').on('change','#vehicle_action',function(){
+			 //alert ('hello')
+			 if($(this).val() == 2)
+                {			 
+			$('#viewVehicleModal').modal('show');
+		    var id = $(this).attr('rel');
+            $.ajax({
+                url: "{{ route('admin.showData') }}",
+                type: "get",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    id: id
+                },
+                dataType: "json",
+                beforeSend: function() {
+                    $('#user_loder').show()
+                },
+                success: function(data) {
+				$('#user_loder').hide();
+				$('#vehiclenumber').val(data.vehicle_number);
+				$('#previousvehicleno').val(data.previous_vehicle_no);
+				$('#namemodel').val(data.name_model);
+				$('#regroadtax').val(data.reg_road_tax);
+				$('#bodytype').val(data.body_type);
+				$('#chassisno').val(data.chassis_no);
+				$('#engineno').val(data.engine_no);
+				$('#propellant_no').val(data.propellant);
+				$('#originalregdate').val(data.original_reg_date);
+				$('#colour_name').val(data.colour);
+				$('#numberofowner').val(data.number_of_owner);
+				$('#coelogcard').val(data.coe_logcard);
+				$('#coepqp').val(data.coe_pqp);
+				$('#regfee').val(data.reg_fee);
+				$('#arfamount').val(data.arf_amount);
+				$('#omv_no').val(data.omv);
+				$('#cvesrebate').val(data.cves_rebate);
+				$('#etspaperfrom').val(data.ets_paper_from);
+				$('#usetcoe').val(data.use_tcoe);
+				  //alert("Pass")			  
+                },
+                error: function() {
+                    $('#user_loder').hide();
+                    alert("Fail")
+                }
+
+            })
+				}
+        })
+		
+function editVehicleDetails(id) {			
+            $('#editVehicleModal').modal('show');
+            $.ajax({
+                url: "{{ route('admin.get_vehicle_details') }}",
+                type: "get",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    id: id
+                },
+                dataType: "json",
+                beforeSend: function() {
+                    $('#user_loder').show()
+                },
+                success: function(data) {
+				$('#user_loder').hide();
+				$('#vehicle_Number').val(data.vehicle_number);
+				$('#previous_Vehicle_No').val(data.previous_vehicle_no);
+				$('#name_Model').val(data.name_model);
+				$('#reg_Road_Tax').val(data.reg_road_tax);
+				$('#body_Type').val(data.body_type);
+				$('#chassis_No').val(data.chassis_no);
+				$('#engine_No').val(data.engine_no);
+				$('#Propellant').val(data.propellant);
+				$('#original_Reg_Date').val(data.original_reg_date);
+				$('#Colour').val(data.colour);
+				$('#number_Of_Owner').val(data.number_of_owner);
+				$('#coe_Logcard').val(data.coe_logcard);
+				$('#coe_Pqp').val(data.coe_pqp);
+				$('#reg_Fee').val(data.reg_fee);
+				$('#arf_Amount').val(data.arf_amount);
+				$('#Omv').val(data.omv);
+				$('#cves_Rebate').val(data.cves_rebate);
+				$('#ets_Paper_From').val(data.ets_paper_from);
+				$('#use_Tcoe').val(data.use_tcoe);
+                },
+                error: function() {
+                    $('#user_loder').hide();
+                    alert("Fail")
+                }
+
+            })
+        }
+$('#edit_vehicle_button').click(function() {
+            var form = $('#edit_vehicle_details_form')[0];
+            var data = new FormData(form);
+            $.ajax({
+                url: "{{ route('admin.edit_vehicle_details') }}",
+                type: "POST",
+                data: data,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                cache: false,
+                beforeSend: function() {
+                    $('#edit_user_spin').show();
+                    $("#edit_vehicle_details_form :input").prop("disabled", true);
+                    $('#user_loder').show()
+                },
+                success: function(data) {
+                    $('#edit_user_spin').hide();
+                    $('#editVehicleModal').modal('hide');
+                    $("#edit_vehicle_details_form :input").prop("disabled", false);
+                    $('#user_loder').hide()
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.message
+                    })
+                    $('#table').bootstrapTable('refresh');
+                },
+			error: function(error) {
+                    $('#edit_user_spin').hide();
+                    $("#edit_vehicle_details_form :input").prop("disabled", false);
+                    $('#user_loder').hide()
+                    console.log(error)
+                    var err = error.responseJSON.errors;
+                    if (error.status == 422) {
+                    $('#vehicle_Number_error').html(err.vehicle_Number)
+                    $('#previous_Vehicle_No_error').html(err.previous_Vehicle_No)
+                    $('#name_Model_error').html(err.name_Model)
+                    $('#reg_Road_Tax_error').html(err.reg_Road_Tax)
+                    $('#body_Type_error').html(err.body_type)
+                    $('#engine_No_error').html(err.engine_No)
+                    $('#chassis_No_error').html(err.chassis_No)
+                    $('#Propellant_error').html(err.Propellant)
+                    $('#original_Reg_Date_error').html(err.original_Reg_Date)
+                    $('#Colour_error').html(err.Colour)
+                    $('#number_Of_Owner_error').html(err.number_Of_Owner)
+                    $('#coe_Logcard_error').html(err.coe_Logcard)
+                    $('#coe_Pqp_error').html(err.coe_Pqp)
+                    $('#reg_Fee_error').html(err.reg_Fee)
+                    $('#arf_Amount_error').html(err.arf_Amount)
+                    $('#Omv_error').html(err.Omv)
+                    $('#cves_Rebate_error').html(err.cves_Rebate)
+                    $('#ets_Paper_From_error').html(err.ets_Paper_From)
+                    $('#use_Tcoe_error').html(err.use_Tcoe)
+                    }
+                }
+            })
+        });
+		
+</script>
