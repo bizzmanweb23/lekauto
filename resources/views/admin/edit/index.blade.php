@@ -53,8 +53,8 @@
                              <!-- this is box -->
                              <select name="vehicle_status" id="vehicle_status" class="form-control mt-2 form-control-user">
                              <option value="">--Select Status--</option>       
-                             <option <?php if($vehicle[0]->vehicle_status == 'Ordered'){ echo 'selected';} ?> value="Ordered">Ordered</option>
-                             <option <?php if($vehicle[0]->vehicle_status == 'NotOrdered'){ echo 'selected';} ?>value="NotOrdered">Not Ordered</option>     
+                             <option <?php if($vehicle[0]->vehicle_status == 'New'){ echo 'selected';} ?> value="New">New</option>
+                             <option <?php if($vehicle[0]->vehicle_status == 'Old'){ echo 'selected';} ?>value="Old">Old</option>     
                                 </select>
                                 <span id="vehicle_status_error" style="color:red;"></span>
                                 </div>
@@ -2734,9 +2734,25 @@
 					    	<span id="vendorNameCost_error" style="color: red"></span>
                             </div>
                             </div>
-                            </div>    
+                            </div> 
                             <div class="col-md-6">
                             <div class="row">
+                            <div class="col-md-3">
+                            <!-- this is the label -->
+                            <label class="mt-3" for="vendor_name">Vendor Address:</label>
+                            </div>
+                            <div class="col-md-9">
+                            <!-- this is box -->
+                            <textarea type="text" class="form-control" id="vendorAddressCost" name="vendorAddressCost[]" value="" placeholder="Enter Vendor Address"></textarea>
+						    <span id="vendorAddressCost_error" style="color: red"></span>
+                            </div>
+                            </div>
+                            </div>							                                           
+                            </div>							                                    
+                      
+                            <div class="row">
+                            <div class="col-md-6">
+							<div class="row">
                             <div class="col-md-3">
                             <!-- this is the label -->
                             <label class="mt-3" for="miscellaneous_description">Description:</label>
@@ -2746,15 +2762,10 @@
                             <textarea class="form-control mt-3" id="cost_description" name="cost_description[]" value="" placeholder="Enter Description"></textarea>
 					        <span id="cost_description_error" style="color: red"></span>
                             </div>
-                            </div>
-                            </div>                                            
-                            </div>
-
-
-
-                            <div class="row">
+                            </div>                            
+                            </div>    
                             <div class="col-md-6">
-                            <div class="row">
+							<div class="row">
                             <div class="col-md-3">
                             <!-- this is the label -->
                             <label class="mt-3" for="total_amount">Total Spent Amount:</label>
@@ -2763,11 +2774,14 @@
                             <!-- this is box -->
                             <input type="text" class="form-control mt-3" id="totalAmount" name="totalAmount[]" value="" placeholder="Total Spent Amount">
 				     	    <span id="totalAmount_error" style="color: red"></span>
-                         </div>
                             </div>
-                            </div>    
-                            <div class="col-md-6">
+                            </div>
+                            </div>                                            
+                            </div>
+
                             <div class="row">
+                            <div class="col-md-6">
+							<div class="row">
                             <div class="col-md-3">
                             <!-- this is the label -->
                             <label class="mt-3" for="transaction_type">Transaction Type:</label>
@@ -2782,11 +2796,8 @@
 					        <span id="transaction_type_error" style="color: red"></span>
                             </div>
                             </div>
-                            </div>                                            
-                            </div>
-
-                            <div class="row">
-                            <div class="col-md-6">
+							</div>
+							<div class="col-md-6">
                             <div class="row">
                             <div class="col-md-3">
                             <!-- this is the label -->
@@ -2799,7 +2810,23 @@
                             </div>
                             </div>
                             </div> 
-                            </div>				
+                            </div>	
+
+                            <div class="row">
+							<div class="col-md-6">
+                            <div class="row">
+                            <div class="col-md-3">
+                            <!-- this is the label -->
+                            <label class="mt-3" for="floor_interest">Code:</label>
+                            </div>
+                            <div class="col-md-9">
+                            <!-- this is box -->
+                            <input type="text" class="form-control mt-3" id="code" name="code[]" value="" placeholder="Enter Code">
+					        <span id="code" style="color: red"></span>
+                            </div>
+                            </div>
+                            </div> 
+                            </div>							
 			<?php
 				}
 				}
@@ -2864,9 +2891,26 @@
 					    	<span id="vendorNameCost_error" style="color: red"></span>
                             </div>
                             </div>
-                            </div>    
+                            </div>
                             <div class="col-md-6">
                             <div class="row">
+                            <div class="col-md-3">
+                            <!-- this is the label -->
+                            <label class="mt-3" for="vendor_name">Vendor Address:</label>
+                            </div>
+                            <div class="col-md-9">
+                            <!-- this is box -->
+                            <textarea type="text" class="form-control" id="vendorAddressCost" name="vendorAddressCost[]" value="" placeholder="Enter Vendor Address"></textarea>
+						    <span id="vendorAddressCost_error" style="color: red"></span>
+                            </div>
+                            </div>
+                            </div>							                                           
+                            </div>
+							
+							
+                            <div class="row">
+                            <div class="col-md-6">
+							<div class="row">
                             <div class="col-md-3">
                             <!-- this is the label -->
                             <label class="mt-3" for="miscellaneous_description">Description:</label>
@@ -2877,13 +2921,6 @@
 					        <span id="cost_description_error" style="color: red"></span>
                             </div>
                             </div>
-                            </div>                                            
-                            </div>
-
-
-
-                            <div class="row">
-                            <div class="col-md-6">
                             <div class="row">
                             <div class="col-md-3">
                             <!-- this is the label -->
@@ -2895,8 +2932,11 @@
 				     	    <span id="totalAmount_error" style="color: red"></span>
                          </div>
                             </div>
-                            </div>    
-                            <div class="col-md-6">
+                            </div>
+                            </div>
+
+                            <div class="row">
+							<div class="col-md-6">
                             <div class="row">
                             <div class="col-md-3">
                             <!-- this is the label -->
@@ -2912,10 +2952,7 @@
 					        <span id="transaction_type_error" style="color: red"></span>
                             </div>
                             </div>
-                            </div>                                            
-                            </div>
-
-                            <div class="row">
+                            </div> 
                             <div class="col-md-6">
                             <div class="row">
                             <div class="col-md-3">
@@ -2926,6 +2963,21 @@
                             <!-- this is box -->
                             <input type="text" class="form-control mt-3" id="floor_interest" name="floor_interest[]" value="" placeholder="Enter Floor Interest">
 					        <span id="floor_interest_error" style="color: red"></span>
+                            </div>
+                            </div>
+                            </div> 
+                            </div>
+							<div class="row">
+							<div class="col-md-6">
+                            <div class="row">
+                            <div class="col-md-3">
+                            <!-- this is the label -->
+                            <label class="mt-3" for="floor_interest">Code:</label>
+                            </div>
+                            <div class="col-md-9">
+                            <!-- this is box -->
+                            <input type="text" class="form-control mt-3" id="code" name="code[]" value="" placeholder="Enter Code">
+					        <span id="code" style="color: red"></span>
                             </div>
                             </div>
                             </div> 

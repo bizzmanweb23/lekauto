@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\AdminPriceListController;
 use App\Http\Controllers\Admin\AdminInsuranceTypeController;
 use App\Http\Controllers\Admin\AdminCostTypeController;
 use App\Http\Controllers\Admin\AdminVehicleManufactureController;
+use App\Http\Controllers\Admin\AdminCommissionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -111,6 +112,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
 	Route::resource('pricelist', AdminPriceListController::class)->names([
         'index'  => 'pricelist.index',
         'store' => 'pricelist.store'
+	]);
+	
+	Route::any('/get_vehicleCommission_details', [AdminCommissionController::class, 'get_vehicleCommission_details'])->name('get_vehicleCommission_details');
+	Route::resource('commission-details', AdminCommissionController::class)->names([
+        'index'  => 'commission.index',
+        'store' => 'commission.store'
 	]);
 	
 	

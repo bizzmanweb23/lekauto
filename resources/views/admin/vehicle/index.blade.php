@@ -40,8 +40,8 @@
                              <!-- this is box -->
                              <select name="vehicle_status" id="vehicle_status" class="form-control mt-3 form-control-user">
                                     <option value="">--Select Status--</option>
-                                    <option value="Ordered">Ordered</option>
-                                    <option value="NotOrdered">Not Ordered</option>
+                                    <option value="New">New</option>
+                                    <option value="Old">Old</option>
                                 </select>
                                 <span id="vehicle_status_error" style="color:red;"></span>
                                 </div>
